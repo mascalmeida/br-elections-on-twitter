@@ -4,10 +4,10 @@ from tweepy import OAuthHandler, Stream, StreamListener
 from datetime import datetime
 
 # Key access
-cosumer_key = "xHG2qWclMuEJKDdIfxaVCBdau"
-consumer_secret = "Kufd4X4qNT3AsbHweExiZWF6YYkJ6u0pTkCMquFFqGBf2Bzo1R"
-access_token = "1429778781452095490-HRIHxVMeKneSgfYbGn1KWTUZtXPACz"
-access_token_secret = "XAU1f2R8xd3vQuBQI5TGLo240TwoftUfBC24hIW0g7HkI"
+cosumer_key = "XXXXXXXXXXXXXXXXXXXXXX"
+consumer_secret = "XXXXXXXXXXXXXXXXXXXXXX"
+access_token = "XXXXXXXXXXXXXXXXXXXXXX"
+access_token_secret = "XXXXXXXXXXXXXXXXXXXXXX"
 
 # Define output to store twitter data
 today_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
