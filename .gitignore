@@ -1,2 +1,6 @@
 # Avoinding to push the api keys
 apikeys.py
+
+# Avoiding checkpoints & caches
+.ipynb_checkpoints
+__pycache__
