@@ -13,12 +13,18 @@ DROP TABLE IF EXISTS profile_mentions;
 CREATE TABLE IF NOT EXISTS profile_mentions (
 	`start` DATE NOT NULL,
 	start_date DATE NOT NULL,
-	start_time DATE NOT NULL,
+	start_time TIME NOT NULL,
 	`end` DATE NOT NULL,
 	end_date DATE NOT NULL,
-	end_time DATE NOT NULL,
+	end_time TIME NOT NULL,
     `@LulaOficial_mentions` INT,
-    `@LulaOficial_mentions_without_retweet` INT
+    `@LulaOficial_mentions_without_retweet` INT,
+    `@jairbolsonaro_mentions` INT,
+    `@jairbolsonaro_mentions_without_retweet` INT,
+    `@cirogomes_mentions` INT,
+    `@cirogomes_mentions_without_retweet` INT,
+    `@simonetebetbr_mentions` INT,
+    `@simonetebetbr_mentions_without_retweet` INT
 );
 
 -- CREATE PROFILE INFO TABLE
