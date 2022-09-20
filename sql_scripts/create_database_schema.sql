@@ -11,10 +11,10 @@ USE br_elections;
 -- CREATE PROFILE MENTIONS TABLE
 DROP TABLE IF EXISTS profile_mentions;
 CREATE TABLE IF NOT EXISTS profile_mentions (
-	`start` DATE NOT NULL,
+	`start` TIMESTAMP NOT NULL,
 	start_date DATE NOT NULL,
 	start_time TIME NOT NULL,
-	`end` DATE NOT NULL,
+	`end` TIMESTAMP NOT NULL,
 	end_date DATE NOT NULL,
 	end_time TIME NOT NULL,
     `@LulaOficial_mentions` INT,
@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS profile_mentions (
     `@cirogomes_mentions` INT,
     `@cirogomes_mentions_without_retweet` INT,
     `@simonetebetbr_mentions` INT,
-    `@simonetebetbr_mentions_without_retweet` INT
+    `@simonetebetbr_mentions_without_retweet` INT,
+    CONSTRAINT PK_end PRIMARY KEY (`end`)
 );
 
 -- CREATE PROFILE INFO TABLE
@@ -36,5 +37,6 @@ CREATE TABLE IF NOT EXISTS profile_info (
     `following` INT,
     posts INT,
     lists INT,
-    likes INT
+    likes INT,
+    CONSTRAINT PK_date_person PRIMARY KEY (`date`, screen_name)
 );

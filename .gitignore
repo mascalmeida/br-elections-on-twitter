@@ -1,6 +1,9 @@
 # Avoinding to push the api keys
 apikeys.py
 
+# Avoinding to push the mysql credentials
+mysqlcredentials.py
+
 # Avoiding checkpoints & caches
 .ipynb_checkpoints
 __pycache__
