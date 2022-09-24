@@ -1,0 +1,25 @@
+# Define the python image
+FROM python:3.9-slim-buster
+
+# create the app directory
+## Um parâmetro interessante de mkdir é o “-p” que permite criar um diretório dentro de outro ainda não existente, 
+## neste caso, o comando cria cada diretório iterativamente até atingir aquele desejado.
+RUN mkdir -p /app
+
+# copy files from local to work directory (image)
+COPY . /app/
+
+# define the work directory
+WORKDIR /app
+
+# Use root to install system dependencies
+USER root
+
+# install python packages
+RUN pip install tweepy \
+  && pip install pandas \
+  && pip install SQLAlchemy \
+  && pip install pymysql
+
+# command to run the app
+CMD [ "python", "./main_etl_code.py"]

@@ -1,22 +1,26 @@
 # IMPORT PACKAGES
+try:  
+    ## tweepy - api to get data from twitter
+    import tweepy as tw
+    ## hiding API keys - ref: https://youtu.be/CJjSOzb0IYs
+    import apikeys
+    ## data manipulation
+    import pandas as pd
+    ## date transformation
+    from datetime import datetime, timedelta
+    ## Loading data from python to sql database
+    import sqlalchemy as sa
+    from sqlalchemy import create_engine
+    ## working with mysql
+    import pymysql
+    ## hiding MySQL credentials - ref: https://youtu.be/CJjSOzb0IYs
+    import mysqlcredentials
 
-## tweepy - api to get data from twitter
-import tweepy as tw
-## hiding API keys - ref: https://youtu.be/CJjSOzb0IYs
-import apikeys
-## data manipulation
-import pandas as pd
-## date transformation
-from datetime import datetime, timedelta
-## Loading data from python to sql database
-import sqlalchemy as sa
-from sqlalchemy import create_engine
-## working with mysql
-import pymysql
-## hiding MySQL credentials - ref: https://youtu.be/CJjSOzb0IYs
-import mysqlcredentials
+except:
+    print("Import packages error")
 
-def run_etl():
+def run_etl(event, context):
+
     # CREATE CONNECTION WITH TWITTER API
 
     ## Authentication Tokens
@@ -172,3 +176,5 @@ def run_etl():
     new_profile_info.to_sql(con=engine, name='profile_info', if_exists='append', index=False)
     new_profile_mentions.to_sql(con=engine, name='profile_mentions', if_exists='append', index=False)
     print("SUCCESSUFUL - LOADING")
+
+    return(print(">>>>> ETL is done! <<<<<"))
