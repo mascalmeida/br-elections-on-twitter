@@ -8,8 +8,6 @@ from datetime import datetime, timedelta
 ## working with mysql
 #import pymysql
 import mysql.connector
-## hiding MySQL credentials - ref: https://youtu.be/CJjSOzb0IYs
-import mysqlcredentials
 
 # FUNCTIONS ------------------------------------------------------------------
 
