@@ -4,6 +4,9 @@ apikeys.py
 # Avoinding to push the mysql credentials
 mysqlcredentials.py
 
+# Avoinding to push the mysql credentials [streamlit]
+.streamlit/secrets.toml
+
 # Avoiding checkpoints & caches
 .ipynb_checkpoints
 __pycache__
