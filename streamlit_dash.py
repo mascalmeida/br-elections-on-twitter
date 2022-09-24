@@ -3,11 +3,10 @@
 import streamlit as st
 ## data manipulation
 import pandas as pd
-## loading data from python to sql database
-import sqlalchemy as sa
-from sqlalchemy import create_engine
+## date transformation
+from datetime import datetime, timedelta
 ## working with mysql
-import pymysql
+#import pymysql
 import mysql.connector
 ## hiding MySQL credentials - ref: https://youtu.be/CJjSOzb0IYs
 import mysqlcredentials
@@ -29,13 +28,8 @@ df = load_mysql_table("SELECT * FROM vw_last_update", init_conn())
 
 # DASHBOARD -------------------------------------------------------------------
 # Last valid date
-st.write('Last update:', df.iloc[0,0])
+st.write(':arrows_counterclockwise: Last update: ' + str(df.iloc[0,0]))
+st.write(':soon: Next update: ' + str((df.iloc[0,0] + timedelta(days=1)).date()) + ' at 12PM')
 
 ## Dash title
 st.title('Twitter & Brazilian Elections')
-
-
-
-
-
-
