@@ -1,4 +1,4 @@
-# <p align="center" style="margin-top: 0px;"> <img align="center" alt="twitter" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg"> Twitter & Brazilian Elections <img align="center" alt="urna" height="45" width="45" src="https://user-images.githubusercontent.com/48625700/192151877-e07c0c2a-f2cf-49f7-ad1c-9392bbde3b74.png">
+# <p align="center" style="margin-top: 0px;"><img align="center" alt="urna" height="45" width="45" src="https://user-images.githubusercontent.com/48625700/192151877-e07c0c2a-f2cf-49f7-ad1c-9392bbde3b74.png"> Brazilian Election on Twitter <img align="center" alt="twitter" height="40" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg">
 
 This project is a data-driven solution that uses Twitter data to analyse the brazilian presidency candidates profiles performance.
 
@@ -34,4 +34,6 @@ Note: it is updated everyday at 12PM.
 
 Give a ⭐️ if you like this project!
 
-React 👍 in our Linkedin post!
+React 👍 in our [Linkedin post!](https://icarob.shinyapps.io/electionsbr/)
+
+Interact ❤️ in our [Twitter post!](https://icarob.shinyapps.io/electionsbr/)
