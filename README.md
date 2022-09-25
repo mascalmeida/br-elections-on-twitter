@@ -27,6 +27,8 @@ Note: it is updated everyday at 12PM.
 ### Shiny App
 
 ## References
+- Tweepy: https://youtu.be/q8q3OFFfY6c
+- Docker + Lambda: https://youtu.be/2VtuNOEw8S4
 
 ## Support
 
