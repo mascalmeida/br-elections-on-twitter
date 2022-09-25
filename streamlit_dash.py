@@ -27,9 +27,6 @@ def space(num_lines=1):
     for _ in range(num_lines):
         st.write("")
 
-# DATA MANIPULATIONS ----------------------------------------------------------
-
-
 # DASHBOARD -------------------------------------------------------------------
 
 ## Get last update view from MySQL
