@@ -4,14 +4,24 @@ This project is a data-driven solution that uses Twitter data to analyse the bra
 
 ## Achitecture
 
-## ETL
+![architecture_v0](https://user-images.githubusercontent.com/48625700/192150843-4b5e3671-4428-4cde-a492-97eefb37731c.png)
 
-### Extraction
+### AWS Resources
 
-### Transformation
+### ETL
 
-### Loading
+- Extraction
+
+- Transformation
+
+- Loading
+
+### MySQL Database
+
+### Shiny App
 
 ## Support
 
 Give a ⭐️ if you like this project!
+
+React 👍 in our Linkedin post!
