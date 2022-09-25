@@ -13,12 +13,13 @@ library(dotenv)
 library(DBI)
 library(RMySQL)
 library(lubridate)
+library(tippy)
 
 ## Lista os nomes dos candidatos com suas handles e cores
 handles <- tibble(
-  candidato = c("Lula - PT", "Bolsonaro - PL", "Ciro - PDT", "Simone - MDB"),
+  candidato = c("Lula", "Bolsonaro", "Ciro", "Simone"),
   screen_name = c("LulaOficial", "jairbolsonaro", "cirogomes", "simonetebetbr"),
-  cor = c("#FF0A01", "#004CFF", "#FF01ED", "#D1C300")
+  cor = c("#FF0A01", "#002B8F", "#FF01ED", "#D1C300")
 )
 
 ## Define o svg das folhas
@@ -62,9 +63,12 @@ mentions <- fetch(result)
 result <- dbSendQuery(mysqlconnection, "select * from vw_last_update")
 update <- fetch(result)
 
-## Converter de string a data
-mentions <- mentions %>% dplyr::mutate(end = ymd_hms(end))
+## Converter as datas de texto a data
+mentions <- mentions %>% dplyr::mutate(end = ymd_hms(end),
+                                       end_date = ymd(end_date))
 profile <- profile %>% dplyr::mutate(date = ymd(date))
+update <- update %>% dplyr::mutate(end = ymd_hms(end),
+                                   end_date = ymd(end_date))
 
 # 2. Define o arranjo da UI
 ui <- fluidPage(
@@ -84,42 +88,62 @@ ui <- fluidPage(
     id = "mega_container",
     
     ### Define título do app
-    div("Observatório eleitoral no Twitter", id = "title"),
+    div("Brazilian Election on Twitter", id = "title"),
+    
+    ### Define seção de update
+    uiOutput("update"),
     
     ### Define seção de desempenho
-    span("Desempenho dos candidatos", class = "subtitles"),hr(class = "section"),
+    span("Candidates numbers", class = "subtitles"),hr(class = "section"),
     uiOutput("stats"),
     
     ### Define seção de menções
-    span("Menções aos candidatos", class = "subtitles"),hr(class = "section"),
+    span("Mentions", class = "subtitles"),
+    span(
+      class = "subtitles",
+      tippy(
+        icon("circle-info"),
+        placement = "right",
+        allowHTML = TRUE,
+        arrow = TRUE,
+        tooltip = "The number of Tweets that mentioned<br>the candidate profile, including retweets"
+      )
+    ),
+    hr(class = "section"),
     ggiraphOutput("timementions", height = "400px"),
     
-    ### Inclui imagens para decorar o app
-    tweet_svg,
+    ### Define seção de menções
+    span("Mentions without retweets", class = "subtitles"),hr(class = "section"),
+    ggiraphOutput("timementions_wort", height = "400px"),
     
-    ### Inclui
-    span("Autores", class = "subtitles"),hr(class = "section"),
+    ### Inclui autores
+    span("Authors", class = "subtitles"),hr(class = "section"),
     img(src = "images/lucas.png", class = "foto"),
     div(
       class = "credenciais",
       strong("Lucas Mascarenhas"),
-      div(a("@mascalmeida", href = "https://github.com/mascalmeida", target = "_blank")),
-      div(a("LinkedIn", href = "https://www.linkedin.com/in/lucas-mascarenhas/", target = "_blank")),
+      div(icon("github"), a("@mascalmeida", href = "https://github.com/mascalmeida", target = "_blank")),
+      div(icon("linkedin"), a("lucas-mascarenhas", href = "https://www.linkedin.com/in/lucas-mascarenhas/", target = "_blank")),
       div("lucasmascalmeida@gmail.com")
     ),
-    div(style="clear:both;"),
+    div(style="clear:both;margin-bottom:20px;"),
     
     img(src = "images/icaro.png", class = "foto"),
     div(
       class = "credenciais",
       strong("Ícaro Bernardes"),
-      div(a("@IcaroBSC", href = "https://github.com/IcaroBernardes", target = "_blank")),
-      div(a("LinkedIn", href = "https://www.linkedin.com/in/icarobsc/", target = "_blank")),
-      div(a("Twitter", href = "https://twitter.com/icarobsc", target = "_blank")),
-      div("lucasmascalmeida@gmail.com")
+      div(icon("github"), a("@IcaroBernardes", href = "https://github.com/IcaroBernardes", target = "_blank")),
+      div(icon("linkedin"), a("icarobsc", href = "https://www.linkedin.com/in/icarobsc/", target = "_blank")),
+      div(icon("twitter"), a("@IcaroBSC", href = "https://twitter.com/icarobsc", target = "_blank")),
+      div("asaicaro@gmail.com")
     ),
-    div(style="clear:both;")
+    div(style="clear:both;"),
     
+    ### Inclui suporte
+    span("Support", class = "subtitles"),hr(class = "section"),
+    div("Give a ⭐️ in our", a("GitHub", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"), "project", class = "support"),
+    div("React 👍 in our", a("LinkedIn", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"),"post", class = "support"),
+    div("Interact ❤️ in our", a("Twitter", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"),"post", class = "support")
   )
   
   
@@ -128,6 +152,14 @@ ui <- fluidPage(
 
 # 3. Define a lógica do servidor
 server <- function(input, output) {
+  
+  ## Gera a seção com as informações de update
+  output$update <- renderUI({
+    tagList(
+      div(glue("🔄 Last update: {update$end}")),
+      div(glue("🔜 Next update: {update$end_date+1} at 12PM"))
+    )
+  })
   
   ## Gera a seção com as principais estatísticas dos candidatos na rede
   output$stats <- renderUI({
@@ -156,23 +188,28 @@ server <- function(input, output) {
       purrr::pmap(function(screen_name, mentions, followers, likes, candidato, cor, id) {
         
         div(
-          class = "cards", id = glue("cards_id"),
+          class = "cards", id = glue("cards_{id}"),
           
-          img(src = glue("images/{screen_name}.png")),
+          img(src = glue("images/{screen_name}.png"),
+              style = glue("border:{cor} solid 5px;border-radius:40px;")),
+          
+          div(
+            class = "stats_info",
+            div(a(href = glue("https://twitter.com/{screen_name}"),
+                  target = "_blank",
+                  screen_name))
+          ),
+          
           div(
             class = "stats_followers",
             div(label_number(scale_cut = cut_si(""), accuracy = 0.1, decimal.mark = ",")(followers), class = "stats_values"),
-            div("SEGUIDORES", class = "stats_titles")
+            div("FOLLOWERS", class = "stats_titles")
           ),
-          div(
-            class = "stats_likes",
-            div(label_number(scale_cut = cut_si(""), accuracy = 0.1, decimal.mark = ",")(likes), class = "stats_values"),
-            div("CURTIDAS", class = "stats_titles")
-          ),
+          
           div(
             class = "stats_mentions",
             div(label_number(scale_cut = cut_si(""), accuracy = 0.1, decimal.mark = ",")(mentions), class = "stats_values"),
-            div("MENÇÕES", class = "stats_titles")
+            div("MENTIONS", class = "stats_titles")
           )
         )
         
@@ -185,11 +222,17 @@ server <- function(input, output) {
     
     ### Mantém apenas as variáveis de interesse e rearranja os dados
     time <- mentions %>% 
-      dplyr::select(data = end, ends_with("mentions")) %>% 
+      dplyr::select(data = end_date, ends_with("mentions")) %>% 
       tidyr::pivot_longer(cols = ends_with("mentions"),
                           names_to = c("screen_name",".value"),
                           names_sep = "_",
                           names_prefix = "@")
+    
+    ### Agrega os dados a nível diário
+    time <- time %>%
+      dplyr::group_by(data, screen_name) %>% 
+      dplyr::summarise(mentions = sum(mentions)) %>% 
+      dplyr::ungroup()
     
     ### Inclui os nomes e cores dos candidatos
     time <- time %>% dplyr::left_join(handles)
@@ -197,24 +240,85 @@ server <- function(input, output) {
     ### Gera a tooltip a exibir
     time <- time %>% 
       dplyr::mutate(tooltip = glue("<div style='background-color:{cor};padding:12px;border-radius:15px;'>
-                                   <strong>Candidatura: <strong><span>{candidato}</span><br>
-                                   <strong>Menções: <strong><span>{mentions}</span><br>
-                                   <strong>Data: <strong><span>{data}</span>
+                                   <strong>Candidate: <strong><span>{candidato}</span><br>
+                                   <strong>Mentions: <strong><span>{mentions}</span><br>
+                                   <strong>Date: <strong><span>{data}</span>
                                    </div>"))
     
     ### Gera o gráfico
     plot <- time %>% 
       ggplot(aes(x = data, y = mentions)) +
-      geom_line_interactive(aes(data_id = candidato, color = I(cor)), size = 1) +
+      geom_line_interactive(aes(data_id = candidato, color = I(cor)), size = 3) +
       geom_point_interactive(aes(data_id = candidato, tooltip = tooltip,
-                                 color = I(cor)), size = 0.5, fill = "white",
-                             shape = 21, stroke = 0.5) +
-      scale_y_continuous(breaks = seq(0, 25000, by = 5000),
-                         labels = label_number()) +
+                                 color = I(cor)), size = 3, fill = "white",
+                             shape = 21, stroke = 1) +
+      scale_y_continuous(n.breaks = 11, labels = label_number()) +
+      scale_x_date(date_breaks = "3 days") +
       theme_minimal() +
       theme(
+        plot.background = element_rect(fill = "#1D9BF0", color = NA),
+        panel.grid.minor = element_blank(),
         axis.title = element_blank(),
-        axis.text = element_text(size = 20)
+        axis.text = element_text(size = 20, color = "white"),
+        axis.text.x = element_text(angle = 40, hjust = 1)
+      )
+    
+    ### Converte a um objeto ggiraph
+    girafe(
+      ggobj = plot, width_svg = 8, height_svg = 6,
+      options = list(
+        opts_tooltip(css = "background:none;color:white;"),
+        opts_toolbar(pngname = "mentions"),
+        opts_hover_inv(css = "opacity:0.3;"),
+        opts_hover(css = "stroke-width:2;")
+      ))
+    
+  })
+  
+  ## Gera o gráfico com a série temporal de mentions sem rt
+  output$timementions_wort <- renderggiraph({
+    
+    ### Mantém apenas as variáveis de interesse e rearranja os dados
+    time <- mentions %>% 
+      dplyr::select(data = end_date, ends_with("mentions_without_retweet")) %>% 
+      tidyr::pivot_longer(cols = ends_with("mentions_without_retweet"),
+                          names_to = c("screen_name",".value"),
+                          names_sep = "_",
+                          names_prefix = "@")
+    
+    ### Agrega os dados a nível diário
+    time <- time %>%
+      dplyr::group_by(data, screen_name) %>% 
+      dplyr::summarise(mentions = sum(mentions)) %>% 
+      dplyr::ungroup()
+    
+    ### Inclui os nomes e cores dos candidatos
+    time <- time %>% dplyr::left_join(handles)
+    
+    ### Gera a tooltip a exibir
+    time <- time %>% 
+      dplyr::mutate(tooltip = glue("<div style='background-color:{cor};padding:12px;border-radius:15px;'>
+                                   <strong>Candidate: <strong><span>{candidato}</span><br>
+                                   <strong>Mentions: <strong><span>{mentions}</span><br>
+                                   <strong>Date: <strong><span>{data}</span>
+                                   </div>"))
+    
+    ### Gera o gráfico
+    plot <- time %>% 
+      ggplot(aes(x = data, y = mentions)) +
+      geom_line_interactive(aes(data_id = candidato, color = I(cor)), size = 3) +
+      geom_point_interactive(aes(data_id = candidato, tooltip = tooltip,
+                                 color = I(cor)), size = 3, fill = "white",
+                             shape = 21, stroke = 1) +
+      scale_y_continuous(n.breaks = 11, labels = label_number()) +
+      scale_x_date(date_breaks = "3 days") +
+      theme_minimal() +
+      theme(
+        plot.background = element_rect(fill = "#1D9BF0", color = NA),
+        panel.grid.minor = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 20, color = "white"),
+        axis.text.x = element_text(angle = 40, hjust = 1)
       )
     
     ### Converte a um objeto ggiraph

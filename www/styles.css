@@ -1,5 +1,9 @@
 body {
-  background: #1D9BF0;
+  background: #1b80c3;
+}
+
+a {
+  color: white;
 }
 
 #mega_container {
@@ -9,6 +13,15 @@ body {
   padding: 30px 50px 30px 50px;
   margin-left: auto;
   margin-right: auto;
+  border-left: white solid 2px;
+  border-right: white solid 2px;
+  color: white;
+  background: #1D9BF0;
+}
+
+#update {
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .tweet {
@@ -22,15 +35,13 @@ body {
 }
 
 #title {
-  font-size: 50px;
+  font-size: 55px;
   font-weight: bold;
   margin-bottom: 40px;
-  line-height: 55px;
-  color: white;
+  line-height: 56px;
 }
 
 .subtitles {
-  color: white;
   font-size: 25px;
   margin: 20px 0 0 0;
   padding-right: 25px;
@@ -47,13 +58,10 @@ body {
 	border: 0.8px solid white;
 }
 
-
-
 .cards {
   position: relative;
-  height: 400px;
+  height: 280px;
   width: 110px;
-  color: white;
   text-align: center;
   float: left;
 }
@@ -71,33 +79,33 @@ body {
 }
 
 #cards_2 {
-  left: 130px;
+  left: 20px;
 }
 
 #cards_3 {
-  left: 260px;
+  left: 40px;
 }
 
 #cards_4 {
-  left: 390px;
+  left: 60px;
 }
 
-.stats_followers, .stats_likes, .stats_mentions {
+.stats_info, .stats_followers, .stats_mentions {
   position: absolute;
   height: 70px;
   width: 100%;
 }
 
-.stats_followers {
+.stats_info {
   top: 100px;
 }
 
-.stats_likes {
-  top: 180px;
+.stats_followers {
+  top: 130px;
 }
 
 .stats_mentions {
-  top: 260px;
+  top: 200px;
 }
 
 .stats_values {
@@ -122,5 +130,12 @@ body {
 
 .credenciais {
   float: left;
-  margin-bottom: 20px;
+}
+
+.support {
+  font-size: 20px;
+}
+
+.support a {
+  font-weight: bold;
 }
