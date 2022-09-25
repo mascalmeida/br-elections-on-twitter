@@ -2,8 +2,10 @@
 
 This project is a data-driven solution that uses Twitter data to analyse the brazilian presidency candidates profiles performance.
 
-:pushpin: Link to go to Shiny App :point_right: [click here!](https://icarob.shinyapps.io/br-elections-on-twitter/) :point_left:
+:pushpin: Link to go to Shiny App :point_right: [click here!](https://icarob.shinyapps.io/electionsbr/) :point_left:
 
+
+  
 Note: it is updated everyday at 12PM.
 
 ## Achitecture
@@ -23,6 +25,8 @@ Note: it is updated everyday at 12PM.
 ### MySQL Database
 
 ### Shiny App
+
+## References
 
 ## Support
 
