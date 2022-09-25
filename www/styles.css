@@ -1,0 +1,126 @@
+body {
+  background: #1D9BF0;
+}
+
+#mega_container {
+  position: relative;
+  font-family: 'Ubuntu', sans-serif;
+  width: 600px;
+  padding: 30px 50px 30px 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tweet {
+  position: absolute;
+  fill: white;
+  width: 1160px;
+  transform: rotate(20deg);
+  z-index: -1;
+  top: 390px;
+  left: -260px;
+}
+
+#title {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  line-height: 55px;
+  color: white;
+}
+
+.subtitles {
+  color: white;
+  font-size: 25px;
+  margin: 20px 0 0 0;
+  padding-right: 25px;
+  position: relative;
+  float: left;
+  background: #1D9BF0;
+  z-index: 1;
+}
+
+.section {
+  position: relative;
+	width: 100%;
+	top: -16px;
+	border: 0.8px solid white;
+}
+
+
+
+.cards {
+  position: relative;
+  height: 400px;
+  width: 110px;
+  color: white;
+  text-align: center;
+  float: left;
+}
+
+.cards img {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 10px;
+  left: 20px;
+}
+
+#cards_1 {
+  left: 0;
+}
+
+#cards_2 {
+  left: 130px;
+}
+
+#cards_3 {
+  left: 260px;
+}
+
+#cards_4 {
+  left: 390px;
+}
+
+.stats_followers, .stats_likes, .stats_mentions {
+  position: absolute;
+  height: 70px;
+  width: 100%;
+}
+
+.stats_followers {
+  top: 100px;
+}
+
+.stats_likes {
+  top: 180px;
+}
+
+.stats_mentions {
+  top: 260px;
+}
+
+.stats_values {
+  top: -3px;
+  font-size: 30px;
+}
+
+.stats_titles {
+  top: 40px;
+  font-size: 15px;
+}
+
+#timementions {
+  margin: 20px 0 20px 0;
+}
+
+.foto {
+  float: left;
+  width: 100px;
+  margin-right: 20px;
+}
+
+.credenciais {
+  float: left;
+  margin-bottom: 20px;
+}
