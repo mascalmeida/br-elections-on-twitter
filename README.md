@@ -69,6 +69,6 @@ Note: it is updated everyday at 12PM.
 
 Give a ⭐️ if you like this project!
 
-React 👍 in our [Linkedin post!](https://icarob.shinyapps.io/electionsbr/)
+React 👍 in our [Linkedin post!](https://www.linkedin.com/posts/lucas-mascarenhas_python-docker-mysql-activity-6980180488736935937-aXbK/)
 
-Interact ❤️ in our [Twitter post!](https://icarob.shinyapps.io/electionsbr/)
+Interact ❤️ in our [Twitter post!](https://twitter.com/IcaroBSC/status/1574415139666890759)
