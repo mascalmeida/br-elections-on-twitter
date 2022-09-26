@@ -10,7 +10,7 @@ Note: it is updated everyday at 12PM.
 
 ## Achitecture
 
-![architecture_v0](https://user-images.githubusercontent.com/48625700/192150843-4b5e3671-4428-4cde-a492-97eefb37731c.png)
+![architecture_v0](https://user-images.githubusercontent.com/48625700/192272486-579bdc8e-2dc8-4161-8f64-5bb9007748da.png)
 
 ### AWS Resources
 
