@@ -29,7 +29,7 @@ Note: it is updated everyday at 12PM.
 
 - **Transformation**: The main package used to transform and manipulate data was Pandas, it was used mainly to transform data scraped from Twitter API into pandas data frame format.
 
-- **Loading**: The SQLAlchemy was used to create the connection between the python code and the MySQL database, it is possible to combine this connection with Pandas load function.
+- **Loading**: The SQLAlchemy was used to create the connection ([engine](https://docs.sqlalchemy.org/en/14/core/engines.html)) between the python code and the MySQL database, it is possible to combine this connection with [Pandas load function](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html).
 
 ### MySQL Database
 
