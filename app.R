@@ -118,8 +118,8 @@ ui <- fluidPage(
     ### Define seção de suporte
     span("Support", class = "subtitles"),hr(class = "section"),
     div("Give a ⭐️ in our", a("GitHub", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"), "project", class = "support"),
-    div("React 👍 in our", a("LinkedIn", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"),"post", class = "support"),
-    div("Interact ❤️ in our", a("Twitter", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"),"post", class = "support")
+    div("React 👍 in our", a("LinkedIn", href="https://www.linkedin.com/posts/lucas-mascarenhas_python-docker-mysql-activity-6980180488736935937-aXbK", target = "_blank"),"post", class = "support"),
+    div("Interact ❤️ in our", a("Twitter", href="https://twitter.com/IcaroBSC/status/1574415139666890759", target = "_blank"),"post", class = "support")
   )
   
 )

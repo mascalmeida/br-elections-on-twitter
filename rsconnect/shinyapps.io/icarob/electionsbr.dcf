@@ -5,10 +5,10 @@ account: icarob
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 7114811
-bundleId: 6338594
+bundleId: 6339290
 url: https://icarob.shinyapps.io/electionsbr/
-when: 1664194940.94752
-lastSyncTime: 1664194940.94852
+when: 1664204939.20385
+lastSyncTime: 1664204939.20385
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .gitattributes|Dockerfile|main_etl_code.py|README.md|sql_scripts/create_database_schema.sql|sql_scripts/create_last_update_view.sql|poc_codes
