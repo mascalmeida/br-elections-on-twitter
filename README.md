@@ -58,7 +58,8 @@ Note: it is updated everyday at 12PM.
 - Tweepy hands-on: https://youtu.be/q8q3OFFfY6c
 - Docker + Lambda: https://youtu.be/2VtuNOEw8S4
 
-## Support
+------------------------------------------------------------
+**SUPPORT**
 
 Give a ⭐️ if you like this project!
 
