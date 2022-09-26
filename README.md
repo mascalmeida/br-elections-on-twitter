@@ -23,32 +23,32 @@ Note: it is updated everyday at 12PM.
 
 ### ETL
 
-- Extraction: Tweepy is a python package that make easier the access to Twitter API. The functions that have been used here are: 
+- **Extraction**: Tweepy is a python package that make easier the access to Twitter API. The functions that have been used here are: 
   1. [get_recent_tweets_count](https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent). This function gets the number of Tweets that mentioned the query words.
   2. [get_user](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-show). This function gets information about the user, i.e. followers, posts, screen name and etc.
 
-- Transformation
+- **Transformation**: The main package used to transform and manipulate data was Pandas, it was used mainly to transform data scraped from Twitter API into pandas data frame format.
 
-- Loading
+- **Loading**: The SQLAlchemy was used to create the connection between the python code and the MySQL database, it is possible to combine this connection with Pandas load function.
 
 ### MySQL Database
 
-- Profile Mentions Table: Store the number of total mentions, mentions without retweets, and the respective date and time. It is an hourly table.
+- **Profile Mentions Table**: Store the number of total mentions, mentions without retweets, and the respective date and time. It is an hourly table.
 
 <p align="center">
 <img width="600px"  src="https://user-images.githubusercontent.com/48625700/192282051-6a544d8a-58c7-4979-b527-e6fde679f258.png" />
 </p>
 
-- Profile Info Table: Store some important info about the users and the respective date. It is a daily table.
+- **Profile Info Table**: Store some important info about the users and the respective date. It is a daily table.
 
 <p align="center">
-<img width="400px"  src="https://user-images.githubusercontent.com/48625700/192283402-9746ac51-0127-4a34-9ac2-3855eee21395.png" />
+<img width="450px"  src="https://user-images.githubusercontent.com/48625700/192283402-9746ac51-0127-4a34-9ac2-3855eee21395.png" />
 </p>
 
-- Last Updated View: Store the date and time of the last time that the ETL ran.
+- **Last Updated View**: Store the date and time of the last time that the ETL ran.
 
 <p align="center">
-<img width="400px"  src="https://user-images.githubusercontent.com/48625700/192282051-6a544d8a-58c7-4979-b527-e6fde679f258.png" />
+<img width="350px"  src="https://user-images.githubusercontent.com/48625700/192284151-0ea77cff-6b3d-4f9a-86f0-de3616e7872b.png" />
 </p>
 
 ### Shiny App
