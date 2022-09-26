@@ -10,13 +10,20 @@ Note: it is updated everyday at 12PM.
 
 ## Achitecture
 
-![architecture_v0](https://user-images.githubusercontent.com/48625700/192272486-579bdc8e-2dc8-4161-8f64-5bb9007748da.png)
+![architecture_v0](https://user-images.githubusercontent.com/48625700/192274947-17c9a7e9-124f-408d-a754-7645e7dabd50.png)
 
 ### AWS Resources
 
+| Resource | Function    | Description    |
+| :---:   | :---: | :---: |
+| [EventBridge](https://aws.amazon.com/eventbridge/) | Trigger the ETL   | Build event-driven applications at scale across AWS, existing systems, or SaaS apps   |
+| [ECR](https://aws.amazon.com/ecr/) | Store the container with the ETL   | Easily store, share, and deploy your container software anywhere   |
+| [Lambda](https://aws.amazon.com/lambda/) | Run the ECR with the ETL   | Run code without thinking about servers or clusters   |
+| [RDS](https://aws.amazon.com/rds/) | Operate MySQL Database   | Set up, operate, and scale a relational database in the cloud with just a few clicks   |
+
 ### ETL
 
-- Extraction
+- Extraction: Tweepy is a python package that make easier the access to Twitter API.
 
 - Transformation
 
