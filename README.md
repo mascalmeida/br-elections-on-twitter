@@ -23,7 +23,9 @@ Note: it is updated everyday at 12PM.
 
 ### ETL
 
-- Extraction: Tweepy is a python package that make easier the access to Twitter API.
+- Extraction: Tweepy is a python package that make easier the access to Twitter API. The functions that have been used here are: 
+  1. [get_recent_tweets_count](https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent). This function gets the number of Tweets that mentioned the query words.
+  2. [get_user](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-show). This function gets information about the user, i.e. followers, posts, screen name and etc.
 
 - Transformation
 
@@ -31,10 +33,29 @@ Note: it is updated everyday at 12PM.
 
 ### MySQL Database
 
+- Profile Mentions Table: Store the number of total mentions, mentions without retweets, and the respective date and time. It is an hourly table.
+
+<p align="center">
+<img width="600px"  src="https://user-images.githubusercontent.com/48625700/192282051-6a544d8a-58c7-4979-b527-e6fde679f258.png" />
+</p>
+
+- Profile Info Table: Store some important info about the users and the respective date. It is a daily table.
+
+<p align="center">
+<img width="400px"  src="https://user-images.githubusercontent.com/48625700/192283402-9746ac51-0127-4a34-9ac2-3855eee21395.png" />
+</p>
+
+- Last Updated View: Store the date and time of the last time that the ETL ran.
+
+<p align="center">
+<img width="400px"  src="https://user-images.githubusercontent.com/48625700/192282051-6a544d8a-58c7-4979-b527-e6fde679f258.png" />
+</p>
+
 ### Shiny App
 
 ## References
-- Tweepy: https://youtu.be/q8q3OFFfY6c
+- Tweepy functions: https://dev.to/twitterdev/a-comprehensive-guide-for-using-the-twitter-api-v2-using-tweepy-in-python-15d9
+- Tweepy hands-on: https://youtu.be/q8q3OFFfY6c
 - Docker + Lambda: https://youtu.be/2VtuNOEw8S4
 
 ## Support
