@@ -59,7 +59,7 @@ Note: it is updated everyday at 12PM.
 - Docker + Lambda: https://youtu.be/2VtuNOEw8S4
 
 ------------------------------------------------------------
-**SUPPORT**
+### Support
 
 Give a ⭐️ if you like this project!
 
