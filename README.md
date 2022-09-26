@@ -53,6 +53,12 @@ Note: it is updated everyday at 12PM.
 
 ### Shiny App
 
+- **Connecting the app to the MySQL Database**: Remote databases are an excellent solution to keep a Shiny app updated. The `pool` package helps establish and manage remote storage connections. Of course, some sensitive information is needed to build these bridges between the app and storage. That's when the `dotenv` package comes to aid: it allows the developer to hide their credentials in a .env file, upload it to the host service, and easily access them.
+
+- **Leveraging the power of `purrr`**: When building an app UI, one can use HTML tags inside the `R` code. Just like some `ggplot2` layers, these tags are stored in lists. This means that `purrr` can be used to build such structures, especially if they are repetitive.
+
+- **Interactive dataviz**: `ggiraph` is a `ggplot2`-friendly package to build interactive plots. It helps to create plots that do not overwhelm users with data. Hover events and tooltips aid the user to focus on particular aspects of a plot.
+
 ## References
 - Tweepy functions: https://dev.to/twitterdev/a-comprehensive-guide-for-using-the-twitter-api-v2-using-tweepy-in-python-15d9
 - Tweepy hands-on: https://youtu.be/q8q3OFFfY6c
