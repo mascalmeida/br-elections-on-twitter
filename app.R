@@ -12,6 +12,7 @@ library(scales)
 library(dotenv)
 library(DBI)
 library(RMySQL)
+library(pool)
 library(lubridate)
 library(tippy)
 
@@ -20,16 +21,6 @@ handles <- tibble(
   candidato = c("Lula", "Bolsonaro", "Ciro", "Simone"),
   screen_name = c("LulaOficial", "jairbolsonaro", "cirogomes", "simonetebetbr"),
   cor = c("#FF0A01", "#002B8F", "#FF01ED", "#D1C300")
-)
-
-## Define o svg das folhas
-leaf_svg <- tags$svg(
-  class = "leaf",
-  xmlns="http://www.w3.org/2000/svg", 
-  viewBox="0 0 576 512",
-  tags$path(
-    d="M546.2 9.7c-5.6-12.5-21.6-13-28.3-1.2C486.9 62.4 431.4 96 368 96h-80C182 96 96 182 96 288c0 7 .8 13.7 1.5 20.5C161.3 262.8 253.4 224 384 224c8.8 0 16 7.2 16 16s-7.2 16-16 16C132.6 256 26 410.1 2.4 468c-6.6 16.3 1.2 34.9 17.5 41.6 16.4 6.8 35-1.1 41.8-17.3 1.5-3.6 20.9-47.9 71.9-90.6 32.4 43.9 94 85.8 174.9 77.2C465.5 467.5 576 326.7 576 154.3c0-50.2-10.8-102.2-29.8-144.6z"
-  )
 )
 
 ## Define o svg do Twitter
@@ -46,7 +37,7 @@ tweet_svg <- tags$svg(
 load_dot_env()
 
 ## Estabelece conexão com a base de dados
-mysqlconnection <- DBI::dbConnect(
+pool <- pool::dbPool(
   RMySQL::MySQL(),
   dbname=Sys.getenv("database"),
   host=Sys.getenv("host"),
@@ -54,21 +45,6 @@ mysqlconnection <- DBI::dbConnect(
   user=Sys.getenv("user"),
   password=Sys.getenv("passw")
 )
-
-## Efetua as queries e carrega os bancos
-result <- dbSendQuery(mysqlconnection, "select * from profile_info")
-profile <- fetch(result)
-result <- dbSendQuery(mysqlconnection, "select * from profile_mentions")
-mentions <- fetch(result)
-result <- dbSendQuery(mysqlconnection, "select * from vw_last_update")
-update <- fetch(result)
-
-## Converter as datas de texto a data
-mentions <- mentions %>% dplyr::mutate(end = ymd_hms(end),
-                                       end_date = ymd(end_date))
-profile <- profile %>% dplyr::mutate(date = ymd(date))
-update <- update %>% dplyr::mutate(end = ymd_hms(end),
-                                   end_date = ymd(end_date))
 
 # 2. Define o arranjo da UI
 ui <- fluidPage(
@@ -116,7 +92,7 @@ ui <- fluidPage(
     span("Mentions without retweets", class = "subtitles"),hr(class = "section"),
     ggiraphOutput("timementions_wort", height = "400px"),
     
-    ### Inclui autores
+    ### Define seção de autores
     span("Authors", class = "subtitles"),hr(class = "section"),
     img(src = "images/lucas.png", class = "foto"),
     div(
@@ -139,33 +115,69 @@ ui <- fluidPage(
     ),
     div(style="clear:both;"),
     
-    ### Inclui suporte
+    ### Define seção de suporte
     span("Support", class = "subtitles"),hr(class = "section"),
     div("Give a ⭐️ in our", a("GitHub", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"), "project", class = "support"),
     div("React 👍 in our", a("LinkedIn", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"),"post", class = "support"),
     div("Interact ❤️ in our", a("Twitter", href="https://github.com/mascalmeida/br-elections-on-twitter", target = "_blank"),"post", class = "support")
   )
   
-  
-  
 )
 
 # 3. Define a lógica do servidor
 server <- function(input, output) {
   
+  ## Obtém os dados de mentions e adequa datas
+  mentions <- reactive({
+    
+    query <- "select * from profile_mentions"
+    db <- dbGetQuery(pool, query)
+    db %>% dplyr::mutate(end = ymd_hms(end),
+                         end_date = ymd(end_date))
+    
+  })
+  
+  ## Obtém os dados de profile info e adequa datas
+  profile <- reactive({
+    
+    query <- "select * from profile_info"
+    db <- dbGetQuery(pool, query)
+    db %>% dplyr::mutate(date = ymd(date))
+    
+  })
+  
+  ## Obtém os dados de update e adequa datas
+  update <- reactive({
+    
+    query <- "select * from vw_last_update"
+    db <- dbGetQuery(pool, query)
+    db %>% dplyr::mutate(end = ymd_hms(end),
+                         end_date = ymd(end_date))
+    
+  })
+  
   ## Gera a seção com as informações de update
   output$update <- renderUI({
+    
+    uplast <- update()$end
+    if (hour(uplast) < 12) {
+      upnext <- update()$end_date
+    } else {
+      upnext <- update()$end_date + 1
+    }
+    
     tagList(
-      div(glue("🔄 Last update: {update$end}")),
-      div(glue("🔜 Next update: {update$end_date+1} at 12PM"))
+      div(glue("🔄 Last update: {uplast}")),
+      div(glue("🔜 Next update: {upnext} at 12PM"))
     )
+    
   })
   
   ## Gera a seção com as principais estatísticas dos candidatos na rede
   output$stats <- renderUI({
     
     ### Obtém o total de mentions de cada candidato
-    total_mentions <- mentions %>% 
+    total_mentions <- mentions() %>% 
       dplyr::summarise(across(.cols = ends_with("mentions"), .fns = sum)) %>% 
       tidyr::pivot_longer(cols = everything(),
                           names_to = c("screen_name",".value"),
@@ -173,7 +185,7 @@ server <- function(input, output) {
                           names_prefix = "@")
     
     ### Obtém o total de likes e followers de cada candidato
-    total_info <- profile %>% 
+    total_info <- profile() %>% 
       dplyr::slice_max(order_by = date, n = 1) %>% 
       dplyr::select(screen_name, followers, likes)
     
@@ -221,7 +233,7 @@ server <- function(input, output) {
   output$timementions <- renderggiraph({
     
     ### Mantém apenas as variáveis de interesse e rearranja os dados
-    time <- mentions %>% 
+    time <- mentions() %>% 
       dplyr::select(data = end_date, ends_with("mentions")) %>% 
       tidyr::pivot_longer(cols = ends_with("mentions"),
                           names_to = c("screen_name",".value"),
@@ -279,7 +291,7 @@ server <- function(input, output) {
   output$timementions_wort <- renderggiraph({
     
     ### Mantém apenas as variáveis de interesse e rearranja os dados
-    time <- mentions %>% 
+    time <- mentions() %>% 
       dplyr::select(data = end_date, ends_with("mentions_without_retweet")) %>% 
       tidyr::pivot_longer(cols = ends_with("mentions_without_retweet"),
                           names_to = c("screen_name",".value"),
