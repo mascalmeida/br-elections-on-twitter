@@ -6,7 +6,7 @@ This project is a data-driven solution that uses Twitter data to analyse the bra
 
 
   
-Note: it is updated everyday at 12 AM.
+Note: it is updated everyday at midnight.
 
 ## Achitecture
 
