@@ -6,7 +6,7 @@ This project is a data-driven solution that uses Twitter data to analyse the bra
 
 
   
-Note: it is updated everyday at 12PM.
+Note: it is updated everyday at 12 AM.
 
 ## Achitecture
 
@@ -23,7 +23,7 @@ Note: it is updated everyday at 12PM.
 
 ### ETL
 
-- **Extraction**: Tweepy is a python package that make easier the access to Twitter API. The functions that have been used here are: 
+- **Extraction**: Tweepy is a python package that makes easier the access to Twitter API. The functions that have been used here are: 
   1. [get_recent_tweets_count](https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent). This function gets the number of Tweets that mentioned the query words.
   2. [get_user](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-show). This function gets information about the user, i.e. followers, posts, screen name and etc.
 
