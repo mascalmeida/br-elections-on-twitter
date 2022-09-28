@@ -122,8 +122,7 @@ server <- function(input, output) {
     
     query <- "select * from profile_mentions"
     db <- dbGetQuery(pool, query)
-    db %>% dplyr::mutate(end = ymd_hms(end),
-                         end_date = ymd(end_date))
+    db %>% dplyr::mutate(start_date = ymd(start_date))
     
   })
   
@@ -220,7 +219,7 @@ server <- function(input, output) {
     
     ### Mantém apenas as variáveis de interesse e rearranja os dados
     time <- mentions() %>% 
-      dplyr::select(data = end_date, ends_with("mentions")) %>% 
+      dplyr::select(data = start_date, ends_with("mentions")) %>% 
       tidyr::pivot_longer(cols = ends_with("mentions"),
                           names_to = c("screen_name",".value"),
                           names_sep = "_",
@@ -278,7 +277,7 @@ server <- function(input, output) {
     
     ### Mantém apenas as variáveis de interesse e rearranja os dados
     time <- mentions() %>% 
-      dplyr::select(data = end_date, ends_with("mentions_without_retweet")) %>% 
+      dplyr::select(data = start_date, ends_with("mentions_without_retweet")) %>% 
       tidyr::pivot_longer(cols = ends_with("mentions_without_retweet"),
                           names_to = c("screen_name",".value"),
                           names_sep = "_",
