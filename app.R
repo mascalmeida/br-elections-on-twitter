@@ -249,7 +249,8 @@ server <- function(input, output) {
       geom_point_interactive(aes(data_id = candidato, tooltip = tooltip,
                                  color = I(cor)), size = 3, fill = "white",
                              shape = 21, stroke = 1) +
-      scale_y_continuous(n.breaks = 11, labels = label_number()) +
+      scale_y_continuous(n.breaks = 11, labels = label_number(),
+                         expand = expansion(mult = c(0.1,0.15))) +
       scale_x_date(date_breaks = "3 days") +
       theme_minimal() +
       theme(
@@ -307,7 +308,8 @@ server <- function(input, output) {
       geom_point_interactive(aes(data_id = candidato, tooltip = tooltip,
                                  color = I(cor)), size = 3, fill = "white",
                              shape = 21, stroke = 1) +
-      scale_y_continuous(n.breaks = 11, labels = label_number()) +
+      scale_y_continuous(n.breaks = 11, labels = label_number(),
+                         expand = expansion(mult = c(0.1,0.15))) +
       scale_x_date(date_breaks = "3 days") +
       theme_minimal() +
       theme(

@@ -122,6 +122,10 @@ a {
   margin: 20px 0 20px 0;
 }
 
+.ggiraph-toolbar-block.shinyonly {
+  display: none;
+}
+
 .foto {
   float: left;
   width: 100px;
