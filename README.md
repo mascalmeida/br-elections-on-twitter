@@ -2,7 +2,7 @@
 
 This project is a data-driven solution that uses Twitter data to analyse the brazilian presidency candidates profiles performance.
   
-Note: This dashboard is descontinued since Oct 30th, [full last screen-shot](https://github.com/mascalmeida/br-elections-on-twitter/blob/master/dash-screencapture-2022-10-30.png).
+Note: This dashboard is discontinued since Oct 30th, [full last screen-shot](https://github.com/mascalmeida/br-elections-on-twitter/blob/master/dash-screencapture-2022-10-30.png).
 
 <p align="center">
 <img width="450px"  src="https://user-images.githubusercontent.com/48625700/198876955-4fe6a4ce-582b-49d7-9d89-1acca1fea52b.PNG" />
